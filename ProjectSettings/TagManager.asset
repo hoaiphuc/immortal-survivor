@@ -8,36 +8,51 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  -
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Wall
+  - Pickup
+  - PlayerProjectile
+  - EnemyProjectile
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 1845936734
+    locked: 0
+  - name: DecorationBelow
+    uniqueID: 967483920
+    locked: 0
+  - name: Entities
+    uniqueID: 1234567890
+    locked: 0
+  - name: DecorationAbove
+    uniqueID: 1593847265
+    locked: 0
+  - name: UI_World
+    uniqueID: 2018473625
     locked: 0

@@ -4,6 +4,79 @@
 
 ---
 
+## Map architecture
+
+**Pattern**: 1 scene gameplay duy nhất + map là Prefab + ScriptableObject mô tả run config.
+
+### Cấu trúc thư mục
+```
+Assets/
+  Scenes/
+    Bootstrap.unity        # Init persistent systems, load Gameplay additively
+    MainMenu.unity         # (Phase 1+)
+    Gameplay.unity         # PERSISTENT: Player, Camera, UI, GameManager
+  Prefabs/Maps/
+    Map_LuyenKhi.prefab    # Tilemap painted + bounds + spawn anchors
+  Data/Maps/
+    MapData_LuyenKhi.asset # SO: ref prefab + wave config + duration + biome
+  Tiles/
+    Palette_Mountain.asset # Tile palettes dùng chung nhiều map
+```
+
+### Map prefab — cấu trúc bên trong
+```
+Map_LuyenKhi (root, transform 0,0,0)
+├── Grid
+│   ├── Tilemap_Ground          # sorting "Ground", no collider
+│   ├── Tilemap_Walls           # TilemapCollider2D + CompositeCollider2D + Rigidbody2D Static, layer "Wall"
+│   └── Tilemap_DecoAbove       # sorting "DecorationAbove"
+├── Bounds (BoxCollider2D isTrigger)   # camera clamp + spawn area
+├── SpawnAnchors (empty children)      # boss/NPC vị trí cố định
+└── BiomeLighting (optional)            # URP 2D Light
+```
+
+### Quy tắc
+- Player **không** nằm trong map prefab — Player ở `Gameplay.unity` (persistent).
+- Spawn enemy logic **không** ở map prefab — `EnemySpawner` đọc từ `MapData.waves`.
+- Bounds đọc từ collider child `Bounds`, không hard-code trong code.
+- Mọi map prefab pivot tại (0,0,0) để stack consistent.
+
+### MapData ScriptableObject (Phase 3 mới làm)
+```csharp
+[CreateAssetMenu(menuName = "Immortal/MapData")]
+public class MapData : ScriptableObject
+{
+    public string displayName;
+    public GameObject mapPrefab;
+    public float runDuration = 600f;
+    public WaveConfig[] waves;
+    public AudioClip music;
+    public Color ambientTint = Color.white;
+    // Phase 2: RealmRange minRealm; ElementBias bias;
+}
+```
+
+### Sorting Layers (đã setup trong `ProjectSettings/TagManager.asset`)
+`Default → Ground → DecorationBelow → Entities → DecorationAbove → UI_World`
+
+### Physics Layers (đã setup)
+`Player, Enemy, Wall, Pickup, PlayerProjectile, EnemyProjectile`
+
+Collision matrix (cần config trong `Edit → Project Settings → Physics 2D`):
+- `EnemyProjectile` ✗ `Enemy` (tự bắn nhau)
+- `PlayerProjectile` ✗ `Player`
+- `Pickup` ✗ `Enemy`, ✗ `Wall`, ✗ `PlayerProjectile`, ✗ `EnemyProjectile`
+- `PlayerProjectile` ✗ `EnemyProjectile` (đạn xuyên qua nhau)
+
+### Roadmap thực hiện
+| Phase | Việc |
+|---|---|
+| Phase 0 | Tạo `Map_LuyenKhi.prefab` (chưa cần SO). Đặt Tilemap painted trong đó. |
+| Phase 3 | Tạo `MapData` SO + `MapManager.cs`. Refactor load map qua SO. |
+| Phase 4 | Cân nhắc Addressables nếu >5 map. |
+
+---
+
 ## Cảnh giới
 
 | Cảnh giới | XP cần | Slot công pháp | Slot passive | Ghi chú |
