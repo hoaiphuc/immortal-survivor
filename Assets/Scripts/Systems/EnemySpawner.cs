@@ -1,19 +1,17 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Prefab")]
-    [SerializeField] private GameObject enemyPrefab;
-
-    [Header("Spawn Settings")]
-    [SerializeField] private float spawnInterval = 2f;
-    [SerializeField] private int maxEnemies = 20;
+    [Header("Spawn Radius")]
     [SerializeField] private float minSpawnRadius = 8f;
     [SerializeField] private float maxSpawnRadius = 12f;
 
     private Transform _player;
     private int _activeEnemyCount;
+    private StageData _stageData;
+    private List<Coroutine> _waveCoroutines = new();
 
     private void Start()
     {
@@ -24,30 +22,51 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
         _player = playerObj.transform;
-        StartCoroutine(SpawnLoop());
     }
 
-    private IEnumerator SpawnLoop()
+    public void StartSpawning(StageData data)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(spawnInterval);
+        _stageData = data;
+        _activeEnemyCount = 0;
+        _waveCoroutines.Clear();
 
-            if (_activeEnemyCount < maxEnemies)
-                SpawnEnemy();
+        foreach (var wave in data.waves)
+            _waveCoroutines.Add(StartCoroutine(WaveLoop(wave)));
+    }
+
+    public void StopSpawning()
+    {
+        foreach (var c in _waveCoroutines)
+            if (c != null) StopCoroutine(c);
+        _waveCoroutines.Clear();
+    }
+
+    private IEnumerator WaveLoop(StageData.WaveData wave)
+    {
+        yield return new WaitForSeconds(wave.startTime);
+
+        float waveElapsed = 0f;
+        float duration = wave.endTime - wave.startTime;
+
+        while (waveElapsed < duration)
+        {
+            float interval = wave.GetInterval(waveElapsed);
+            yield return new WaitForSeconds(interval);
+            waveElapsed += interval;
+
+            if (_activeEnemyCount < _stageData.maxEnemies)
+                SpawnEnemy(wave.PickRandom());
         }
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(GameObject prefab)
     {
-        Vector2 direction = Random.insideUnitCircle.normalized;
-        float distance = Random.Range(minSpawnRadius, maxSpawnRadius);
-        Vector3 spawnPos = _player.position + new Vector3(direction.x, direction.y, 0f) * distance;
+        Vector2 dir = Random.insideUnitCircle.normalized;
+        float dist = Random.Range(minSpawnRadius, maxSpawnRadius);
+        Vector3 spawnPos = _player.position + new Vector3(dir.x, dir.y, 0f) * dist;
 
-        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
         _activeEnemyCount++;
-
-        // Decrement counter when enemy is destroyed
         enemy.GetComponent<EnemyHealth>().OnDeath += () => _activeEnemyCount--;
     }
 }
