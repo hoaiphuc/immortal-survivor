@@ -4,6 +4,8 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] float maxHp = 10f;
+    [SerializeField] private GameObject expOrbPrefab;
+    [SerializeField] private int expAmount = 10;
 
     float currentHp;
 
@@ -23,6 +25,11 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         OnDeath?.Invoke();
+        if (expOrbPrefab != null)
+        {
+            GameObject orb = Instantiate(expOrbPrefab, transform.position, Quaternion.identity);
+            orb.GetComponent<ExpOrb>()?.SetExp(expAmount);
+        }
         Destroy(gameObject);
     }
 
