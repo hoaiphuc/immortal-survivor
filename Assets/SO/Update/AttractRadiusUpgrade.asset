@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94fc298cd6f97ba4d89de22f70a841ba, type: 3}
   m_Name: AttractRadiusUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::AttractRadiusUpgrade
-  upgradeName: luc hut
-  description: luc hutluc hutluc hutluc hut
+  upgradeName: "Linh Kh\xED Kh\u1ED1ng Ch\u1EBF"
+  description: "T\u0103ng t\u1EA7m h\xFAt \u0111\u1ED3 v\u1EADt v\xE0 kinh nghi\u1EC7m
+    +5"
   icon: {fileID: 4295824508587396059, guid: 547681462b321994c9c70f9121c089d8, type: 3}
   amount: 1

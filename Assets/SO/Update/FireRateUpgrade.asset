@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76dfb2c3329a1364f821b2495bad0689, type: 3}
   m_Name: FireRateUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::FireRateUpgrade
-  upgradeName: so luong dan
-  description: so luong dan
+  upgradeName: "\u0110a La Di\u1EC7p Ch\u1EC9"
+  description: "T\u1ED1c \u0111\u1ED9 \u0111\xE1nh +5"
   icon: {fileID: 4295824508587396059, guid: 547681462b321994c9c70f9121c089d8, type: 3}
   amount: 0.5

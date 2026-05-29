@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56dd3e1fb918384daa12b0aa6d0e465, type: 3}
   m_Name: MoveSpeedUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::MoveSpeedUpgrade
-  upgradeName: lang ba vi bo
-  description: tang toc chay
+  upgradeName: "Khinh C\xF4ng Ng\u1EF1 Phong"
+  description: "T\u1ED1c \u0111\u1ED9 di chuy\u1EC3n +5"
   icon: {fileID: 4295824508587396059, guid: 547681462b321994c9c70f9121c089d8, type: 3}
   amount: 0.5

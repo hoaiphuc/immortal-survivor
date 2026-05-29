@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d24a6bd05e38547b3def8decae3f28, type: 3}
   m_Name: ExpMultiplierUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::ExpMultiplierUpgrade
-  upgradeName: 
-  description: 
+  upgradeName: "Ng\u1ED9 T\xEDnh Tuy\u1EC7t \u0110\u1EC9nh"
+  description: "t\u0103ng kinh nghi\u1EC7m nh\u1EADn \u0111\u01B0\u1EE3c +5%"
   icon: {fileID: 0}
-  percentBonus: 0.2
+  percentBonus: 1
