@@ -5,6 +5,7 @@ public class PlayerExp : MonoBehaviour
 {
     [SerializeField] private int expToNextLevel = 100;
     [SerializeField] public float attractRadius = 4f;
+    public float expMultiplier = 1f;
 
     public int CurrentExp { get; private set; }
     public int Level { get; private set; } = 1;
@@ -14,7 +15,7 @@ public class PlayerExp : MonoBehaviour
 
     public void AddExp(int amount)
     {
-        CurrentExp += amount;
+        CurrentExp += Mathf.RoundToInt(amount * expMultiplier);
         OnExpChanged?.Invoke(CurrentExp);
 
         while (CurrentExp >= expToNextLevel)

@@ -58,6 +58,9 @@ public class PlayerAutoShoot : MonoBehaviour
         sword.Init(dir, projectileSpeed, damage);
     }
 
+    public void UpgradeDamage(float amount) => damage += amount;
+    public void UpgradeFireRate(float amount) => fireRate += amount;
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

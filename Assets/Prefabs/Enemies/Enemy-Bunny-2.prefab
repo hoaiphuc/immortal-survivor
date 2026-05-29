@@ -187,6 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 10
+  expOrbPrefab: {fileID: 6296780392183411987, guid: 225d1446a2fe9a14ca16b33495bba066, type: 3}
+  expAmount: 50
 --- !u!114 &5558332007587273209
 MonoBehaviour:
   m_ObjectHideFlags: 0

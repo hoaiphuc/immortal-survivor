@@ -40,4 +40,6 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = moveInput * moveSpeed;
     }
+
+    public void UpgradeMoveSpeed(float amount) => moveSpeed += amount;
 }
