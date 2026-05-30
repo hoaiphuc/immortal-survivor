@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -7,6 +7,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private GameObject enemySpawnerPrefab;
 
     private EnemySpawner enemySpawner;
+    public event Action OnStageClear;
 
     private float _stageTimer;
     private State _state;
@@ -34,7 +35,7 @@ public class StageManager : MonoBehaviour
         _state = State.BossPhase;
         enemySpawner.StopSpawning();
 
-        Vector2 dir = Random.insideUnitCircle.normalized;
+        Vector2 dir = UnityEngine.Random.insideUnitCircle.normalized;
         Vector3 spawnPos = FindFirstObjectByType<PlayerHealth>().transform.position
                            + new Vector3(dir.x, dir.y, 0f) * stageData.bossSpawnRadius;
 
@@ -45,9 +46,6 @@ public class StageManager : MonoBehaviour
     private void OnBossDefeated()
     {
         _state = State.StageClear;
-        Debug.Log("Stage Clear!");
-
-        if (!string.IsNullOrEmpty(stageData.nextSceneName))
-            SceneManager.LoadScene(stageData.nextSceneName);
+        OnStageClear?.Invoke();
     }
 }

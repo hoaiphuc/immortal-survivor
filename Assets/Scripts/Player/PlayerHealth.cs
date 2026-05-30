@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
     public bool IsAlive => currentHp > 0f;
+    public event Action OnDeath;
 
     void Awake() => currentHp = maxHp;
 
@@ -27,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player died");
+        OnDeath?.Invoke();
     }
 
     [ContextMenu("Test: Take 10 Damage")]

@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3ee27fe824fcd43bbd62c93aa37a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  moveSpeed: 2
+  moveSpeed: 3
   playerTag: Player
 --- !u!114 &8042371597825879152
 MonoBehaviour:
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 10
   expOrbPrefab: {fileID: 6296780392183411987, guid: 225d1446a2fe9a14ca16b33495bba066, type: 3}
-  expAmount: 50
+  expAmount: 20
 --- !u!114 &5558332007587273209
 MonoBehaviour:
   m_ObjectHideFlags: 0

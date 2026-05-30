@@ -12,25 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a256c463cde494244be358e5703d1e2c, type: 3}
   m_Name: StageData
   m_EditorClassIdentifier: Assembly-CSharp::StageData
-  stageDuration: 30
+  stageDuration: 50
   maxEnemies: 30
-  nextSceneName: 
+  nextSceneName: MainMenu
   bossPrefab: {fileID: 6838573010477165679, guid: f66b33095ef5d434190d85fd27cf08cd, type: 3}
   bossSpawnRadius: 6
   waves:
   - waveName: Bunny
     startTime: 0
-    endTime: 15
+    endTime: 30
     spawnIntervalStart: 2
     spawnIntervalEnd: 1
     enemies:
     - prefab: {fileID: 6838573010477165679, guid: 62f9645c518fe7e4b9363eb3d73e57b2, type: 3}
-      weight: 5
+      weight: 10
   - waveName: Bunny
-    startTime: 10
-    endTime: 29
+    startTime: 15
+    endTime: 50
     spawnIntervalStart: 2
     spawnIntervalEnd: 1
     enemies:
     - prefab: {fileID: 6838573010477165679, guid: 9edb80c01e89ca843bfd803f8a81bbb7, type: 3}
-      weight: 5
+      weight: 10
