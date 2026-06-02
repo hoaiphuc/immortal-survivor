@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField] private StageData stageData;
+    [SerializeField] private SelectedStageData selectedStageData;
     [SerializeField] private GameObject enemySpawnerPrefab;
+
+    private StageData stageData;
 
     private EnemySpawner enemySpawner;
     public event Action OnStageClear;
@@ -16,6 +18,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
+        stageData = selectedStageData.current;
         enemySpawner = Instantiate(enemySpawnerPrefab, transform).GetComponent<EnemySpawner>();
         _state = State.Spawning;
         enemySpawner.StartSpawning(stageData);
